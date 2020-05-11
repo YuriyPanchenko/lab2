@@ -85,8 +85,6 @@ function updateItem(e) {
     updateButton.classList.remove('btn-hidden');
     let hiddenInput = document.getElementById('update-item');
     hiddenInput.value = obj.id;
-    // row.remove();
-    // trainModel.Delete(id);
 }
 
 window.addEventListener('DOMContentLoaded', e => {
