@@ -26,7 +26,16 @@ function initList () {
             { title: 'ID', data: 'id' },
             { title: 'Direction', data: 'direction' },
             { title: 'Departure time', data: 'departureTime' },
-            { title: 'Arrival time', data: 'arrivalTime'}
+            { title: 'Arrival time', data: 'arrivalTime'},
+            { title: 'Delete', data: '' }
+        ],
+        columnDefs: [
+            {
+                "render": function(data, type, row) {
+                    return '<button type="button" value="delete" onclick="deleteItem(this)">Delete</button>';
+                },
+                "targets": 4
+            }
         ]
     })
 }
@@ -39,6 +48,13 @@ function initListEvents () {
         dataTable.rows.add(e.detail)
         dataTable.draw()
     }, false)
+}
+
+function deleteItem(e) {
+    let row = e.parentNode.parentNode;
+    let id = row.getElementsByTagName('td')[0].innerText;
+    row.remove();
+    trainModel.Delete(id);
 }
 
 window.addEventListener('DOMContentLoaded', e => {

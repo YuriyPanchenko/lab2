@@ -1,6 +1,6 @@
 class Passenger extends BaseModel { // eslint-disable-line no-unused-vars, no-undef
     constructor () {
-        super('shops')
+        super('passengers')
         this.fields = this.fields.concat(['name', 'surname', 'passportNumber'])
     }
 }
