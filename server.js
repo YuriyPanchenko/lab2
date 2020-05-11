@@ -10,15 +10,15 @@ app.set('view engine', 'pug');
 app.use(express.static(__dirname));
 
 app.get('/', function (request, response) {
-    response.render("pages/index", {title: "Home"});
+    response.render('pages/index', {title: 'Home'});
 })
 
 app.get('/train', function (request, response) {
-    response.render("pages/train", {title: 'Train'});
+    response.render('pages/train', {title: 'Train'});
 })
 
 app.get('/passenger', function (request, response) {
-    response.render("pages/passenger", {title: 'Passenger'});
+    response.render('pages/passenger', {title: 'Passenger'});
 })
 
 
