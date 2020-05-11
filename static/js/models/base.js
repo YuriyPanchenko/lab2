@@ -38,14 +38,14 @@ class BaseModel {// eslint-disable-line no-unused-vars
    * @returns {BaseModel|undefined}
    */
   FindById (id) {
-    return this.Select().find(item => item.id === id)
+    return this.Select().find(item => item.id == id)
   }
   /**
    * @param {Number} id
    * @returns {Number}
    */
   FindIndexById (id) {
-    return this.Select().findIndex(item => item.id === id)
+    return this.Select().findIndex(item => item.id == id)
   }
   Create (row) {
     const collection = this.Select()
@@ -75,5 +75,22 @@ class BaseModel {// eslint-disable-line no-unused-vars
       }
     }
     this.Commit(collection);
+  }
+  Update (row) {
+    const collection = this.Select()
+    const entry = this.GetEmpty()
+    let id = row['update-item'];
+    let found = collection.find(item => item.id == id);
+
+    for (const key in row) {
+      if (found.hasOwnProperty(key) &&
+          found.key !== 'id') {
+        found[key] = row[key];
+      }
+    }
+    this.Commit(collection);
+
+    const event = new CustomEvent(`${this.collectionName}ListDataChanged`, { detail: collection })
+    document.dispatchEvent(event)
   }
 }
