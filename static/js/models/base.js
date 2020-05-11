@@ -66,4 +66,14 @@ class BaseModel {// eslint-disable-line no-unused-vars
     const event = new CustomEvent(`${this.collectionName}ListDataChanged`, { detail: collection })
     document.dispatchEvent(event)
   }
+  Delete (id) {
+    let collection = this.Select();
+    for(let i = 0; i < collection.length; ++i) {
+      if(collection[i].id == id) {
+        collection.splice(i, 1);
+        break;
+      }
+    }
+    this.Commit(collection);
+  }
 }
