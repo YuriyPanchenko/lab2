@@ -23,6 +23,15 @@ block content
       div(class='col-md-9')
         input(id='arrivalTime' name='arrivalTime' value='' class='form-control')
     div(class='form-group')
+      div(class='col-md-3')
+        label(for='select-example') Arrival time
+      div(class='col-md-9')
+        select(id='select-example' name='select-example' value='' class='form-control')
+        //-
+          option(value='value-1') Value 1
+          option(value='value-2') Value 2
+        //
+    div(class='form-group')
       div(class='col-md-12')
         button(type='submit' id='btn-create' class='btn btn-primary') Create
         button(type='submit' id='btn-update' class='btn btn-primary btn-hidden') Update

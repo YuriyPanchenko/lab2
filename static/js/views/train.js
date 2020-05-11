@@ -1,6 +1,7 @@
 'use strict'
 
 const trainModel = new Train() // eslint-disable-line no-undef
+// const ticketModel = new Ticket() // eslint-disable-line no-undef
 
 function initAddForm () {
     const form = window.document.querySelector('#train-add-form')
@@ -29,6 +30,16 @@ function initAddForm () {
 
         e.target.reset()
     })
+    let ticketCollection = trainModel.Select();
+    let selectNode = document.getElementById('select-example');
+    for(let i = 0; i < ticketCollection.length; ++i) {
+        let optionNode = document.createElement('option');
+        optionNode.value = 'value-' + i + '-' + ticketCollection[i].id;
+        optionNode.innerText = 'ID: '
+            + ticketCollection[i].id + ', '
+            + ticketCollection[i].direction;
+        selectNode.appendChild(optionNode);
+    }
 }
 
 function initList () {
