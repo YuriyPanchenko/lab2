@@ -13,7 +13,19 @@ function initAddForm () {
             trainData[key] = value
         })
 
-        trainModel.Create(trainData)
+        let hiddenInput = document.getElementById('update-item');
+        if(hiddenInput.value) {
+            trainModel.Update(trainData);
+            let createButton = document.getElementById('btn-create');
+            let updateButton = document.getElementById('btn-update');
+            createButton.classList.remove('btn-hidden');
+            updateButton.classList.add('btn-hidden');
+            let hiddenInput = document.getElementById('update-item');
+            hiddenInput.value = '';
+        }
+        else {
+            trainModel.Create(trainData);
+        }
 
         e.target.reset()
     })
@@ -27,12 +39,15 @@ function initList () {
             { title: 'Direction', data: 'direction' },
             { title: 'Departure time', data: 'departureTime' },
             { title: 'Arrival time', data: 'arrivalTime'},
-            { title: 'Delete', data: '' }
+            { title: 'Action', data: '' }
         ],
         columnDefs: [
             {
                 "render": function(data, type, row) {
-                    return '<button type="button" value="delete" onclick="deleteItem(this)">Delete</button>';
+                    return ''
+                        + '<button type="button" value="delete" onclick="deleteItem(this)">Delete</button>'
+                        + "\n"
+                        + '<button type="button" value="update" onclick="updateItem(this)">Update</button>';
                 },
                 "targets": 4
             }
@@ -55,6 +70,23 @@ function deleteItem(e) {
     let id = row.getElementsByTagName('td')[0].innerText;
     row.remove();
     trainModel.Delete(id);
+}
+
+function updateItem(e) {
+    let row = e.parentNode.parentNode;
+    let id = row.getElementsByTagName('td')[0].innerText;
+    let obj = trainModel.FindById(parseInt(id));
+    document.getElementById('direction').value = obj.direction;
+    document.getElementById('departureTime').value = obj.departureTime;
+    document.getElementById('arrivalTime').value = obj.arrivalTime;
+    let createButton = document.getElementById('btn-create');
+    let updateButton = document.getElementById('btn-update');
+    createButton.classList.add('btn-hidden');
+    updateButton.classList.remove('btn-hidden');
+    let hiddenInput = document.getElementById('update-item');
+    hiddenInput.value = obj.id;
+    // row.remove();
+    // trainModel.Delete(id);
 }
 
 window.addEventListener('DOMContentLoaded', e => {
