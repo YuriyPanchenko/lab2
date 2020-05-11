@@ -1,0 +1,33 @@
+extends ../layout.pug
+
+block prepend styles
+  link(rel='stylesheet' href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css')
+
+block content
+  div(class='breadcrumb')
+    li= title
+  form(id='train-add-form' name='train-add-form' class='form-inline' action='')
+    div(class='form-group')
+      div(class='col-md-3')
+        label(for='direction') Direction
+      div(class='col-md-9')
+        input(id='direction' name='direction' value='' class='form-control')
+    div(class='form-group')
+      div(class='col-md-3')
+        label(for='departureTime') Departure time
+      div(class='col-md-9')
+        input(id='departureTime' name='departureTime' value='' class='form-control')
+    div(class='form-group')
+      div(class='col-md-3')
+        label(for='arrivalTime') Arrival time
+      div(class='col-md-9')
+        input(id='arrivalTime' name='arrivalTime' value='' class='form-control')
+    div(class='form-group')
+      div(class='col-md-12')
+        button(type='submit' class='btn btn-primary') Create
+    div.list-wrapper
+      table(id='train-list')
+block append scripts
+  script(src='/static/js/models/train.js')
+  script(src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
+  script(src='/static/js/views/train.js')
