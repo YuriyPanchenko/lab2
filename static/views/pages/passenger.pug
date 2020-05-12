@@ -24,7 +24,9 @@ block content
                 input(id='passportNumber' name='passportNumber' value='' class='form-control')
         div(class='form-group')
             div(class='col-md-12')
-                button(type='submit' class='btn btn-primary') Create
+                button(type='submit' id='btn-create' class='btn btn-primary') Create
+                button(type='submit' id='btn-update' class='btn btn-primary btn-hidden') Update
+                input(type='hidden' id='update-item' name='update-item')
         div.list-wrapper
             table(id='passenger-list')
 block append scripts

@@ -8,12 +8,24 @@ function initAddForm () {
         e.preventDefault()
 
         const formData = new FormData(e.target)
-        const passangerData = {}
+        const passengerData = {}
         formData.forEach((value, key) => {
-            passangerData[key] = value
+            passengerData[key] = value
         })
 
-        passengerModel.Create(passangerData)
+        let hiddenInput = document.getElementById('update-item');
+        if(hiddenInput.value) {
+            passengerModel.Update(passengerData);
+            let createButton = document.getElementById('btn-create');
+            let updateButton = document.getElementById('btn-update');
+            createButton.classList.remove('btn-hidden');
+            updateButton.classList.add('btn-hidden');
+            let hiddenInput = document.getElementById('update-item');
+            hiddenInput.value = '';
+        }
+        else {
+            passengerModel.Create(passengerData);
+        }
 
         e.target.reset()
     })
@@ -26,7 +38,19 @@ function initList () {
             { title: 'ID', data: 'id' },
             { title: 'Name', data: 'name' },
             { title: 'Surname', data: 'surname' },
-            { title: 'Passport number', data: 'passportNumber'}
+            { title: 'Passport number', data: 'passportNumber'},
+            { title: 'Action', data: '' }
+        ],
+        columnDefs: [
+            {
+                "render": function(data, type, row) {
+                    return ''
+                        + '<button type="button" value="delete" onclick="deleteItem(this)">Delete</button>'
+                        + "\n"
+                        + '<button type="button" value="update" onclick="updateItem(this)">Update</button>';
+                },
+                "targets": 4
+            }
         ]
     })
 }
@@ -39,6 +63,28 @@ function initListEvents () {
         dataTable.rows.add(e.detail)
         dataTable.draw()
     }, false)
+}
+
+function deleteItem(e) {
+    let row = e.parentNode.parentNode;
+    let id = row.getElementsByTagName('td')[0].innerText;
+    row.remove();
+    passengerModel.Delete(id);
+}
+
+function updateItem(e) {
+    let row = e.parentNode.parentNode;
+    let id = row.getElementsByTagName('td')[0].innerText;
+    let obj = passengerModel.FindById(parseInt(id));
+    document.getElementById('name').value = obj.name;
+    document.getElementById('surname').value = obj.surname;
+    document.getElementById('passportNumber').value = obj.passportNumber;
+    let createButton = document.getElementById('btn-create');
+    let updateButton = document.getElementById('btn-update');
+    createButton.classList.add('btn-hidden');
+    updateButton.classList.remove('btn-hidden');
+    let hiddenInput = document.getElementById('update-item');
+    hiddenInput.value = obj.id;
 }
 
 window.addEventListener('DOMContentLoaded', e => {
