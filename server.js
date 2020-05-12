@@ -21,5 +21,9 @@ app.get('/passenger', function (request, response) {
     response.render('pages/passenger', {title: 'Passenger'});
 })
 
+app.get('/ticket', function (request, response) {
+    response.render('pages/ticket', {title: 'Ticket'});
+})
+
 
 app.listen(process.env.PORT || 3001)
