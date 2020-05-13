@@ -11,37 +11,20 @@ block content
             div(class='col-md-3')
                 label(for='train') Train
             div(class='col-md-9')
-                select(id='train' name='train' value='' class='form-control' required='required')
-                    option(value='') Select train
-                    option(value='ca') Canada
-                    option(value='en') England
-                    option(value='pl') Poland
-                    option(value='ua') Ukraine
-                    option(value='us') USA
-        form(id='passenger-add-form' name='passenger-add-form' class='form-inline' action='')
-            div(class='form-group')
-                div(class='col-md-3')
-                    label(for='train') Passenger
-                div(class='col-md-9')
-                    select(id='passenger' name='passenger' value='' class='form-control' required='required')
-                        option(value='') Select passenger
-                        option(value='ca') Canada
-                        option(value='en') England
-                        option(value='pl') Poland
-                        option(value='ua') Ukraine
-                        option(value='us') USA
-        form(id='ticket-add-form' name='ticket-add-form' class='form-inline' action='')
-            div(class='form-group')
-                div(class='col-md-3')
-                    label(for='train') Passenger
-                div(class='col-md-9')
-                    select(id='ticket' name='ticket' value='' class='form-control' required='required')
-                        option(value='') Select ticket
-                        option(value='ca') Canada
-                        option(value='en') England
-                        option(value='pl') Poland
-                        option(value='ua') Ukraine
-                        option(value='us') USA
+                select(id='train' name='train' class='form-control' required='required')
+                    option(value='' selected='selected') Select train
+        div(class='form-group')
+            div(class='col-md-3')
+                label(for='ticket') Ticket
+            div(class='col-md-9')
+                select(id='ticket' name='ticket' class='form-control' required='required')
+                    option(value='' selected='selected') Select ticket
+        div(class='form-group')
+            div(class='col-md-3')
+                label(for='passenger') Passenger
+            div(class='col-md-9')
+                select(id='passenger' name='passenger' class='form-control' required='required')
+                    option(value='' selected='selected') Select passenger
         div(class='form-group')
             div(class='col-md-3')
                 label(for='date') Price
@@ -55,6 +38,9 @@ block content
         div.list-wrapper
             table(id='soldTicket-list')
 block append scripts
+    script(src='/static/js/models/train.js')
+    script(src='/static/js/models/ticket.js')
+    script(src='/static/js/models/passenger.js')
     script(src='/static/js/models/soldTicket.js')
     script(src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
     script(src='/static/js/views/soldTicket.js')

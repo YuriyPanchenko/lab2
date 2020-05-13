@@ -1,9 +1,39 @@
 'use strict'
 
-const soldTicketModel = new SoldTicket() // eslint-disable-line no-undef
+const trainModel = new Train();
+const ticketModel = new Ticket();
+const passengerModel = new Passenger();
+const soldTicketModel = new SoldTicket();
 
 function initAddForm () {
     const form = window.document.querySelector('#soldTicket-add-form')
+
+    let selectTagsData = {
+        train: {
+            model: trainModel,
+            innerText: (item) => item.direction
+        },
+        ticket: {
+            model: ticketModel,
+            innerText: (item) => item.number
+        },
+        passenger: {
+            model: passengerModel,
+            innerText: (item) => item.name + ' ' + item.surname
+        },
+    };
+
+    for (var key in selectTagsData) {
+        let selectTag = document.getElementById(key);
+        let trainsCollection = selectTagsData[key].model.Select();
+        trainsCollection.forEach(item => {
+            let option = document.createElement('option');
+            option.value = item.id;
+            option.innerText = selectTagsData[key].innerText(item);
+            selectTag.appendChild(option);
+        });
+    }
+
     form.addEventListener('submit', function (e) {
         e.preventDefault()
 
