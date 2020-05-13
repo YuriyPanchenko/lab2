@@ -74,13 +74,37 @@ function initList () {
         ],
         columnDefs: [
             {
+                "render": function (data, type, row) {
+                    let trains = trainModel.Select();
+                    let newTrains = trains.filter(train => train.id == data)
+                    return newTrains[0].direction;
+                },
+                "targets": 1
+            },
+            {
+                "render": function (data, type, row) {
+                    let passangers = passengerModel.Select();
+                    let newPassengers = passangers.filter(pass => pass.id == data)
+                    return newPassengers[0].name + ' ' + newPassengers[0].surname;
+                },
+                "targets": 2
+            },
+            {
+                "render": function (data, type, row) {
+                    let tickets = ticketModel.Select();
+                    let newTickets = tickets.filter(tick => tick.id == data)
+                    return newTickets[0].number;
+                },
+                "targets": 3
+            },
+            {
                 "render": function(data, type, row) {
                     return ''
                         + '<button type="button" value="delete" onclick="deleteItem(this)">Delete</button>'
                         + "\n"
                         + '<button type="button" value="update" onclick="updateItem(this)">Update</button>';
                 },
-                "targets": 6
+                "targets": 5
             }
         ]
     })
