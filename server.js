@@ -29,5 +29,9 @@ app.get('/soldTicket', function (request, response) {
     response.render('pages/soldTicket', {title: 'Sold Ticket'});
 })
 
+app.get('/mostPopularTrains', function (request, response) {
+    response.render('pages/mostPopularTrains', {title: 'Popular trains statistic'})
+})
+
 
 app.listen(process.env.PORT || 3001)
