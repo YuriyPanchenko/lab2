@@ -6,14 +6,14 @@ block prepend styles
 block content
     div(class='breadcrumb')
         li= title
-    form(id='soldTicket-add-form' name='soldTicket-add-form' class='form-inline' action='')
+    form(id='most-popular-add-form' name='most-popular-add-form' class='form-inline' action='')
         div.list-wrapper
-            table(id='train-list')
+    table(id='most-popular-list')
 block append scripts
     script(src='/static/js/models/train.js')
     script(src='/static/js/models/ticket.js')
     script(src='/static/js/models/passenger.js')
     script(src='/static/js/models/soldTicket.js')
     script(src='//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js')
-    script(src='/static/js/views/soldTicket.js')
+    script(src='/static/js/views/mostPopularTrains.js')
 

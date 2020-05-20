@@ -6,18 +6,29 @@ const passengerModel = new Passenger();
 const soldTicketModel = new SoldTicket();
 
 
-function initList () {
-    window.jQuery('#soldTicket-list').DataTable({
-        data: soldTicketModel.Select(),
+function initList() {
+    let soldTickets = soldTicketModel.Select();
+    let mostPopular = soldTicketModel.mostPopularTrains(soldTickets);
+
+    let mostPopularData = Array.from(
+        mostPopular,
+        x => {
+            return {
+                fields: ['train', 'count'],
+                train: x.train,
+                count: 1
+            }
+        }
+    );
+
+    window.jQuery('#most-popular-list').DataTable({
+        data: mostPopularData,
         columns: [
-            { title: 'ID', data: 'id' },
-            { title: 'train', data: 'train' },
-            { title: 'passenger', data: 'passenger' },
-            { title: 'ticket', data: 'ticket' },
-            { title: 'date', data: 'date' },
-            { title: 'Action', data: '' }
+            { title: 'Train', data: 'train' },
+            { title: 'Count', data: 'count' }
         ],
         columnDefs: [
+            /*//
             {
                 "render": function (data, type, row) {
                     let trains = trainModel.Select();
@@ -33,31 +44,15 @@ function initList () {
                     return newPassengers[0].name + ' ' + newPassengers[0].surname;
                 },
                 "targets": 2
-            },
-            {
-                "render": function (data, type, row) {
-                    let tickets = ticketModel.Select();
-                    let newTickets = tickets.filter(tick => tick.id == data)
-                    return newTickets[0].number;
-                },
-                "targets": 3
-            },
-            {
-                "render": function(data, type, row) {
-                    return ''
-                        + '<button type="button" value="delete" onclick="deleteItem(this)">Delete</button>'
-                        + "\n"
-                        + '<button type="button" value="update" onclick="updateItem(this)">Update</button>';
-                },
-                "targets": 5
             }
+            //*/
         ]
     })
 }
 
 function initListEvents () {
-    document.addEventListener('soldTicketsListDataChanged', function (e) {
-        const dataTable = window.jQuery('#soldTicket-list').DataTable()
+    document.addEventListener('mostPopularListDataChanged', function (e) {
+        const dataTable = window.jQuery('#most-popular-list').DataTable()
 
         dataTable.clear()
         dataTable.rows.add(e.detail)
@@ -89,7 +84,6 @@ function updateItem(e) {
 }
 
 window.addEventListener('DOMContentLoaded', e => {
-    initAddForm()
     initList()
     initListEvents()
 })
